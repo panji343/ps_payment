@@ -111,7 +111,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
     border-collapse: separate;
     border-spacing: 0;
     border: 2px solid #ed1c40;
-    width: 400px;
+    width: 300px;
     margin: 10px auto;
     border-radius: .50rem;
   }
