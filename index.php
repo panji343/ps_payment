@@ -43,50 +43,51 @@
     <form action="cekout.php" method="post" class="login-form">
       <span align="center">LENGKAPI DATA</span>
       <div>
-      <label class="label-email">
-        <input id="nama" type="text" name="nama" placeholder="Nama..." class="text" tabindex="1" readonly/>
-        <span>Nama</span>
-      </label>
-    </div>
-    <div>
-      <label class="label-email">
-        <input id="hp" type="text" name="hp" placeholder="Nama..." class="text" tabindex="1" readonly/>
-        <span>Nomor Handphone</span>
-      </label>
-    </div>
-    <div>
-      <label class="label-email">
-        <input id="email"  type="text" name='email' placeholder="Nama..." class="text" tabindex="1" readonly/>
-        <span>Email</span>
-      </label>
-    </div>
-    <div>
-      <label class="label-email">
-        <input id="alamat" type="text" name="alamat" placeholder="Alamat" class="text" tabindex="1" required/>
-        <span class="required">Alamat</span>
-      </label>
-    </div>
-    <div>
-      <label class="label-email">
-        <input id="kota" type="text" name="kota" placeholder="Kota" class="text" tabindex="1" required/>
-        <span class="required">Kota</span>
-      </label>
-    </div>
-    <div>
-      <label class="label-email">
-        <input id="kodepos" type="text" name="kodepos" placeholder="Kode Pos" class="text" tabindex="1" required/>
-        <span class="required">Kode Pos</span>
-      </label>
-    </div>
-    <tr><td></td><td><input id="array" type="text" name='array' hidden/></td></tr>
-    <input type="submit" value="Simpan" name="simpan"/>
-  </form>
-  <center><button style="display:inline-block; padding:0.3em 1.2em; margin:0 0.1em 0.1em 0; border:0.16em solid rgba(255,255,255,0); border-radius:2em; box-sizing: border-box; text-decoration:none; font-family:'Roboto',sans-serif; font-weight:300; color:#FFFFFF; text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35); text-align:center; transition: all 0.2s; background-color:#f14e4e" onclick="logout()">Logout</button></center>
-</div>
+        <label class="label-email">
+          <input id="nama" type="text" name="nama" placeholder="Nama..." class="text" tabindex="1" readonly/>
+          <span>Nama</span>
+        </label>
+      </div>
+      <div>
+        <label class="label-email">
+          <input id="hp" type="text" name="hp" placeholder="Nama..." class="text" tabindex="1" readonly/>
+          <span>Nomor Handphone</span>
+        </label>
+      </div>
+      <div>
+        <label class="label-email">
+          <input id="email"  type="text" name='email' placeholder="Nama..." class="text" tabindex="1" readonly/>
+          <span>Email</span>
+        </label>
+      </div>
+      <div>
+        <label class="label-email">
+          <input id="alamat" type="text" name="alamat" placeholder="Alamat" class="text" tabindex="1" required/>
+          <span class="required">Alamat</span>
+        </label>
+      </div>
+      <div>
+        <label class="label-email">
+          <input id="kota" type="text" name="kota" placeholder="Kota" class="text" tabindex="1" required/>
+          <span class="required">Kota</span>
+        </label>
+      </div>
+      <div>
+        <label class="label-email">
+          <input id="kodepos" type="text" name="kodepos" placeholder="Kode Pos" class="text" tabindex="1" required/>
+          <span class="required">Kode Pos</span>
+        </label>
+      </div>
+      <tr><td></td><td><input id="array" type="text" name='array' hidden/></td></tr>
+      <tr><td></td><td><input id="arraymukidi" type="text" name='arrayid' hidden/></td></tr>
+      <input type="submit" value="Simpan" name="simpan"/>
+    </form>
+    <center><button style="display:inline-block; padding:0.3em 1.2em; margin:0 0.1em 0.1em 0; border:0.16em solid rgba(255,255,255,0); border-radius:2em; box-sizing: border-box; text-decoration:none; font-family:'Roboto',sans-serif; font-weight:300; color:#FFFFFF; text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35); text-align:center; transition: all 0.2s; background-color:#f14e4e" onclick="logout()">Logout</button></center>
+  </div>
 
 
-<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-<script>
+  <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+  <script>
     // Initialize Firebase
     var config = {
       apiKey: "AIzaSyCCaNsCpUvsucsm5zCWl4zPq2399Gq1Ypw",
@@ -134,20 +135,28 @@
 
         var index = 0;
         var array = [];
+        var arrayid = [];
         data.forEach(function(konten) {
 
-          var idA = konten.val().id;
+          var idA = konten.val().key;
           var jobA = konten.val().job;
           var hargaA = konten.val().harga;
           var banyaknyaA = konten.val().banyaknya;
           var totalA = konten.val().total;
+          var ketA = konten.val().ket;
+          var lebarA = konten.val().lebar;
+          var panjangA = konten.val().panjang;
+          var tglA = konten.val().tgl;
+          var urlA = konten.val().url;
 
           array.push([idA,hargaA,banyaknyaA,jobA,totalA]);
+          arrayid.push([idA,hargaA,banyaknyaA,jobA,totalA,ketA,lebarA,panjangA,tglA,urlA]);
           index++;
 
         });
 
         document.getElementById("array").value = array;
+        document.getElementById("arraymukidi").value = arrayid;
 
       }
       function dataGagal(err) {
@@ -161,6 +170,7 @@
 
       function isiDataEdit(dataEdit) {
         var data = dataEdit.val();
+
 
         document.getElementById("nama").value = data.nama;
         document.getElementById("hp").value = data.hp;
@@ -199,7 +209,9 @@
       firebase.auth().signOut();
     }
 
-  </script>
+
+
+</script>
 
 </body>
 </html>
