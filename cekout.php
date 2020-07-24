@@ -171,6 +171,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
 <body>
   <br>
   <center><h1>Detail Pemesanan</h1></center><br>
+  <tr><td></td><td><input id="arraymukidi" type="text" name='arrayid' hidden/></td></tr>
   <?php
   for ($i = 0; $i < (count($arr_kalimat)/5); $i++){ 
     echo'<table>
@@ -208,6 +209,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
   <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-QBR75dd52EajbqT_"></script>
   <script type="text/javascript">
     document.getElementById('pay-button').onclick = function(){
+      tpl();
       snap.pay('<?=$snapToken?>', {
         onSuccess: function(result){
           document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
@@ -220,6 +222,113 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
         }
       });
     };
+  </script>
+
+  <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCCaNsCpUvsucsm5zCWl4zPq2399Gq1Ypw",
+      authDomain: "printshop-123.firebaseapp.com",
+      databaseURL: "https://printshop-123.firebaseio.com",
+      projectId: "printshop-123",
+      storageBucket: "printshop-123.appspot.com",
+      messagingSenderId: "660500440921"
+    };
+    firebase.initializeApp(config);
+  </script>
+
+  <script>
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+
+        var user = firebase.auth().currentUser;
+
+        if(user != null){
+
+          var ido = user.uid;
+          var db, ArtikelRef;
+
+          db = firebase.database();
+          ArtikelRef = db.ref('admin/'+ido+'/pesanan').orderByChild("status").equalTo("pesan masuk");
+
+          ArtikelRef.on('value' , dataBerhasil , dataGagal);
+
+          function dataBerhasil(data) {
+            console.log(data);
+          }
+          function dataGagal(err) {
+            console.log(err);
+          }
+
+          function dataBerhasil(data) {
+
+            var arrayid = [];
+            data.forEach(function(konten) {
+
+              var idA = konten.val().key;
+              var jobA = konten.val().job;
+              var hargaA = konten.val().harga;
+              var banyaknyaA = konten.val().banyaknya;
+              var totalA = konten.val().total;
+              var ketA = konten.val().ket;
+              var lebarA = konten.val().lebar;
+              var panjangA = konten.val().panjang;
+              var tglA = konten.val().tgl;
+              var urlA = konten.val().url;
+
+              arrayid.push([idA,hargaA,banyaknyaA,jobA,totalA,ketA,lebarA,panjangA,tglA,urlA]);
+
+            });
+
+            document.getElementById("arraymukidi").value = arrayid;
+
+          }
+          function dataGagal(err) {
+            console.log(err);
+          }
+        }
+
+      } 
+    });
+
+  </script>
+
+  <script>
+    function tpl(){
+      var user3 = firebase.auth().currentUser;
+      var ido3 = user3.uid;
+      var db3 = firebase.database();
+      var arr1 = document.getElementById("arraymukidi").value;
+      var arr2 = arr1.split(",");
+      var arr3 = [];
+
+      var n = 0;
+      for(let i = 0; i < (arr2.length/10); i++){
+        arr3.push([arr2[n],arr2[n+1],arr2[n+2],arr2[n+3],arr2[n+4],arr2[n+5],arr2[n+6],arr2[n+7],arr2[n+8],arr2[n+9]]);
+        n=n+10;
+      }
+
+      for (let k = 0; k < arr3.length; k++)
+      {
+        db3.ref('admin/'+ido3+'/pesanan/'+arr3[k][0]).set({
+          admin   : "",
+          banyaknya   : arr3[k][2],  
+          harga   : arr3[k][1],
+          job   : arr3[k][3],
+          karyawan   : "",
+          ket   : arr3[k][5],
+          key   : arr3[k][0],
+          lebar   : arr3[k][6],
+          panjang   : arr3[k][7],
+          status   : "pending", 
+          tgl   : arr3[k][8],
+          total   : arr3[k][4],
+          url   : arr3[k][9]
+        });
+      }
+    }
   </script>
 
 </body>
