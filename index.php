@@ -11,18 +11,7 @@
   <form id="login_div" method="get" action="javascript: void(0);" class="login-form" autocomplete="off" role="main">
     <h1 class="a11y-hidden">Login Form</h1>
 
-    <figure aria-hidden="true">
-      <div class="person-body"></div>
-      <div class="neck skin"></div>
-      <div class="head skin">
-        <div class="eyes"></div>
-        <div class="mouth"></div>
-      </div>
-      <div class="hair"></div>
-      <div class="ears"></div>
-      <div class="shirt-1"></div>
-      <div class="shirt-2"></div>
-    </figure>
+    <center><img src="pay.png"/></center>
     <div>
       <label class="label-email">
         <input type="email" placeholder="Email..." id="email_field" class="text" name="email" tabindex="1" required />
@@ -117,7 +106,7 @@
       var db, db2 , ArtikelRef;
 
       db = firebase.database();
-      ArtikelRef = db.ref('admin/'+ido+'/pesanan').orderByChild("status").equalTo("1");
+      ArtikelRef = db.ref('admin/'+ido+'/pesanan').orderByChild("status").equalTo(1);
 
       ArtikelRef.on('value' , dataBerhasil , dataGagal);
 
