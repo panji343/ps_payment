@@ -172,6 +172,8 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
   <br>
   <center><h1>Detail Pemesanan</h1></center><br>
   <tr><td></td><td><input id="arraymukidi" type="text" name='arrayid' hidden/></td></tr>
+  <tr><td></td><td><input id="arraymukidi2" type="text" name='arrayid' hidden/></td></tr>
+  <tr><td></td><td><input id="arraymukidi3" type="text" name='arrayid'hidden/></td></tr>
   <?php
   for ($i = 0; $i < (count($arr_kalimat)/5); $i++){ 
     echo'<table>
@@ -215,6 +217,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
         },
         onPending: function(result){
           tpl();
+          logout();
           document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
         },
         onError: function(result){
@@ -265,6 +268,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
           function dataBerhasil(data) {
 
             var arrayid = [];
+            var nomey = 0;
             data.forEach(function(konten) {
 
               var idA = konten.val().key;
@@ -279,10 +283,21 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
               var urlA = konten.val().url;
 
               arrayid.push([idA,hargaA,banyaknyaA,jobA,totalA,ketA,lebarA,panjangA,tglA,urlA]);
-
+              nomey++;
             });
 
             document.getElementById("arraymukidi").value = arrayid;
+            document.getElementById("arraymukidi2").value = nomey;
+
+            var db2 = firebase.database();
+            var query = db2.ref('Sadmin/'+ido);
+
+            query.once('value').then(isiDataEdit);
+
+            function isiDataEdit(dataEdit) {
+              var data = dataEdit.val();
+              document.getElementById("arraymukidi3").value = data.jumlahOrder;
+            }
 
           }
           function dataGagal(err) {
@@ -303,6 +318,13 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
       var arr1 = document.getElementById("arraymukidi").value;
       var arr2 = arr1.split(",");
       var arr3 = [];
+
+      var user4 = firebase.auth().currentUser;
+      var ido4 = user4.uid;
+
+      var db4 = firebase.database();
+      var arr5 = document.getElementById("arraymukidi2").value;
+      var lamaJml = document.getElementById("arraymukidi3").value;
 
       var n = 0;
       for(let i = 0; i < (arr2.length/10); i++){
@@ -328,8 +350,15 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
           url   : arr3[k][9]
         });
       }
+
+      db4.ref('Sadmin/'+ido4).set({
+        jumlahOrder   : (Number(arr5) + Number(lamaJml))
+      });
+    }
+
+    function logout(){
+      firebase.auth().signOut();
     }
   </script>
-
 </body>
 </html>
