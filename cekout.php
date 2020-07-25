@@ -251,7 +251,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
           var db, ArtikelRef;
 
           db = firebase.database();
-          ArtikelRef = db.ref('admin/'+ido+'/pesanan').orderByChild("status").equalTo("1");
+          ArtikelRef = db.ref('admin/'+ido+'/pesanan').orderByChild("status").equalTo(1);
 
           ArtikelRef.on('value' , dataBerhasil , dataGagal);
 
@@ -322,7 +322,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
           key   : arr3[k][0],
           lebar   : arr3[k][6],
           panjang   : arr3[k][7],
-          status   : "2", 
+          status   : 2, 
           tgl   : arr3[k][8],
           total   : arr3[k][4],
           url   : arr3[k][9]
