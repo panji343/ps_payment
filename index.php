@@ -117,7 +117,7 @@
       var db, db2 , ArtikelRef;
 
       db = firebase.database();
-      ArtikelRef = db.ref('admin/'+ido+'/pesanan').orderByChild("status").equalTo("pesan masuk");
+      ArtikelRef = db.ref('admin/'+ido+'/pesanan').orderByChild("status").equalTo("1");
 
       ArtikelRef.on('value' , dataBerhasil , dataGagal);
 
