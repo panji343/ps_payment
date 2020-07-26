@@ -356,7 +356,8 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
           status   : 2, 
           tgl   : arr3[k][8],
           total   : arr3[k][4],
-          url   : arr3[k][9]
+          url   : arr3[k][9],
+          pembayaran : "belum lunas"
         });
       }
 
