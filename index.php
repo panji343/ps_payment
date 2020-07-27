@@ -69,6 +69,7 @@
       </div>
       <tr><td></td><td><input id="array" type="text" name='array' hidden/></td></tr>
       <tr><td></td><td><input id="arraymukidi" type="text" name='arrayid' hidden/></td></tr>
+      <tr><td></td><td><input id="today" type="text" name='today' hidden/></td></tr>
       <input type="submit" value="Simpan" name="simpan"/>
     </form>
     <center><button style="display:inline-block; padding:0.3em 1.2em; margin:0 0.1em 0.1em 0; border:0.16em solid rgba(255,255,255,0); border-radius:2em; box-sizing: border-box; text-decoration:none; font-family:'Roboto',sans-serif; font-weight:300; color:#FFFFFF; text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35); text-align:center; transition: all 0.2s; background-color:#f14e4e" onclick="logout()">Logout</button></center>
@@ -164,6 +165,23 @@
         document.getElementById("nama").value = data.nama;
         document.getElementById("hp").value = data.hp;
         document.getElementById("email").value = data.email;
+
+        var date = new Date();
+
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        var jam = (date.getHours()<10?'0':'') + date.getHours() + (date.getMinutes()<10?'0':'') + date.getMinutes();
+
+        var detik = date.getSeconds();
+        var mldetik = date.getMilliseconds();
+
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+
+        var today = "PS" + year + month + day + jam + detik + mldetik;
+
+        document.getElementById("today").value = today;
       }
 
     }
@@ -200,7 +218,7 @@
 
 
 
-</script>
+  </script>
 
 </body>
 </html>
