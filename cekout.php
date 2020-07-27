@@ -367,7 +367,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
       }
 
       db4.ref('Sadmin/'+ido4).set({
-        jumlahOrder : (Number(arr5) + Number(lamaJml)),
+        jumlahOrder : (Number(lamaJml) - Number(arr5)),
         email : email,
         hp : hp,
         nama : nama
