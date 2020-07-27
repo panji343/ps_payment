@@ -19,6 +19,7 @@ if(isset($_POST['simpan'])){
   $alamat      = $_POST['alamat'];
   $kota   = $_POST['kota'];
   $kodepos   = $_POST['kodepos'];
+  $today   = $_POST['today'];
 
   $no = 0;
   for ($i = 0; $i < (count($arr_kalimat)/5); $i++){ 
@@ -30,7 +31,7 @@ if(isset($_POST['simpan'])){
 }
 
 $transaction_details = array(
-  'order_id' => rand(),
+  'order_id' => $today,
   'gross_amount' => 40000, 
 );
 
@@ -177,6 +178,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
   <tr><td></td><td><input id="arraymukidi4" type="text" name='arrayid'hidden/></td></tr>
   <tr><td></td><td><input id="arraymukidi5" type="text" name='arrayid'hidden/></td></tr>
   <tr><td></td><td><input id="arraymukidi6" type="text" name='arrayid'hidden/></td></tr>
+  <?php echo'<tr><td></td><td><input id="today" type="text" name="arrayid" value="'.$today.'" hidden/></td></tr>';?>
   <?php
   for ($i = 0; $i < (count($arr_kalimat)/5); $i++){ 
     echo'<table>
@@ -319,19 +321,6 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
   <script>
     function tpl(){
 
-      var date = new Date();
-
-      var day = date.getDate();
-      var month = date.getMonth() + 1;
-      var year = date.getFullYear();
-      var jam = (date.getHours()<10?'0':'') + date.getHours() + (date.getMinutes()<10?'0':'') + date.getMinutes();
-
-      if (month < 10) month = "0" + month;
-      if (day < 10) day = "0" + day;
-
-      var today = "PS" + year + month + day + jam;
-
-
       var user3 = firebase.auth().currentUser;
       var ido3 = user3.uid;
       var db3 = firebase.database();
@@ -348,6 +337,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
       var email = document.getElementById("arraymukidi4").value;
       var nama = document.getElementById("arraymukidi5").value;
       var hp = document.getElementById("arraymukidi6").value;
+      var detail = document.getElementById("today").value;
 
       var n = 0;
       for(let i = 0; i < (arr2.length/10); i++){
@@ -372,7 +362,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
           total   : arr3[k][4],
           url   : arr3[k][9],
           pembayaran : "belum lunas",
-          detail : today
+          detail : detail
         });
       }
 
