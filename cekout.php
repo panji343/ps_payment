@@ -320,6 +320,17 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
 
   <script>
     function tpl(){
+      
+        var date = new Date();
+      
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+      
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+      
+        var dino = day + "/" + month + "/" + year;
 
       var user3 = firebase.auth().currentUser;
       var ido3 = user3.uid;
@@ -358,7 +369,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
           lebar   : arr3[k][6],
           panjang   : arr3[k][7],
           status   : 2, 
-          tgl   : arr3[k][8],
+          tgl   : dino,
           total   : arr3[k][4],
           url   : arr3[k][9],
           pembayaran : "belum lunas",
