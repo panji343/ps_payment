@@ -221,6 +221,8 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
     document.getElementById('pay-button').onclick = function(){
       snap.pay('<?=$snapToken?>', {
         onSuccess: function(result){
+          tpl();
+          logout();
           document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
         },
         onPending: function(result){
