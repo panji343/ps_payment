@@ -77,8 +77,7 @@ $customer_details = array(
 );
 
 $enable_payments = array('credit_card','bca_klikbca', 'bri_epay', 'echannel',
-    'bca_va', 'bni_va', 'other_va', 'gopay', 'indomaret',
-    'danamon_online', 'akulaku','alfamart','telkomsel_cash');
+    'bca_va', 'bni_va', 'other_va','indomaret', 'akulaku','alfamart','telkomsel_cash');
 
 $transaction = array(
   'enabled_payments' => $enable_payments,
