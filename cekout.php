@@ -76,8 +76,7 @@ $customer_details = array(
   'shipping_address' => $shipping_address
 );
 
-$enable_payments = array('credit_card', 'mandiri_clickpay', 'cimb_clicks',
-    'bca_klikbca', 'bca_klikpay', 'bri_epay', 'echannel', 'permata_va',
+$enable_payments = array('credit_card','bca_klikbca', 'bri_epay', 'echannel',
     'bca_va', 'bni_va', 'other_va', 'gopay', 'indomaret',
     'danamon_online', 'akulaku','alfamart','telkomsel_cash');
 
