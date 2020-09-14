@@ -352,6 +352,10 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
       var nama = document.getElementById("arraymukidi5").value;
       var hp = document.getElementById("arraymukidi6").value;
       var detail = document.getElementById("today").value;
+      
+      var user5 = firebase.auth().currentUser;
+      var ido5 = user5.uid;
+      var db5 = firebase.database();
 
       var n = 0;
       for(let i = 0; i < (arr2.length/10); i++){
@@ -387,6 +391,11 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
         nama : nama
       });
     }
+    
+    db5.ref('detail_pesanan/'+ido5).set({
+          detail   : detail,
+          status   : 2
+        });
 
     function logout(){
       firebase.auth().signOut();
