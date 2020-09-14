@@ -392,7 +392,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
       });
     }
     
-    db5.ref('detail_pesanan/'+ido5+'/'+detail).set({
+    db5.ref('detail_pesanan/'+ido5).set({
           detail   : detail,
           status   : 2
         });
