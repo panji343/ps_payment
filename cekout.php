@@ -262,7 +262,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
           var db, ArtikelRef;
 
           db = firebase.database();
-          ArtikelRef = db.ref('admin/'+ido+'/pesanan').orderByChild("status").equalTo(1);
+          ArtikelRef = db.ref('pelanggan/'+ido+'/pesanan').orderByChild("status").equalTo(1);
 
           ArtikelRef.on('value' , dataBerhasil , dataGagal);
 
@@ -298,7 +298,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
             document.getElementById("arraymukidi2").value = nomey;
 
             var db2 = firebase.database();
-            var query = db2.ref('Sadmin/'+ido);
+            var query = db2.ref('Spelanggan/'+ido);
 
             query.once('value').then(isiDataEdit);
 
@@ -365,7 +365,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
 
       for (let k = 0; k < arr3.length; k++)
       {
-        db3.ref('admin/'+ido3+'/pesanan/'+arr3[k][0]).set({
+        db3.ref('pelanggan/'+ido3+'/pesanan/'+arr3[k][0]).set({
           admin   : "",
           banyaknya   : arr3[k][2],  
           harga   : arr3[k][1],
@@ -384,7 +384,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
         });
       }
 
-      db4.ref('Sadmin/'+ido4).set({
+      db4.ref('Spelanggan/'+ido4).set({
         jumlahOrder : (Number(lamaJml) - Number(arr5)),
         email : email,
         hp : hp,
