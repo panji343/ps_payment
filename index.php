@@ -107,7 +107,7 @@
       var db, db2 , ArtikelRef;
 
       db = firebase.database();
-      ArtikelRef = db.ref('admin/'+ido+'/pesanan').orderByChild("status").equalTo(1);
+      ArtikelRef = db.ref('pelanggan/'+ido+'/pesanan').orderByChild("status").equalTo(1);
 
       ArtikelRef.on('value' , dataBerhasil , dataGagal);
 
@@ -154,7 +154,7 @@
       }
 
       db2 = firebase.database();
-      var query = db2.ref('admin/'+ido);
+      var query = db2.ref('pelanggan/'+ido);
 
       query.once('value').then(isiDataEdit);
 
